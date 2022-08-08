@@ -17,6 +17,9 @@
   ---transition: 1s ease-in-out;
   --fast-transition: 0.2s;
 }
+body {
+  background: var(--white);
+}
 .container {
   width: 100vw;
   height: 100vh;
@@ -278,6 +281,7 @@ completed section
   justify-content: center;
   opacity: 0;
   z-index: -1;
+  transition: var(---transition);
 }
 .completed img {
   width: 65px;

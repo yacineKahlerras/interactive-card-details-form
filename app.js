@@ -6,6 +6,7 @@
     - See hover, active, and focus states for interactive elements on the page
  */
 const button = document.querySelector(".confirm-btn");
+const completedButton = document.querySelector(".completed-button");
 let inputFields = [...document.getElementsByTagName("input")];
 const allErrorElements = [...document.querySelectorAll(".error")];
 const cardName = document.querySelector(".front-card-name");
@@ -153,12 +154,23 @@ const formatInputHandler = (input, e) => {
   }
 };
 
+/** when everything is in order then say thank you */
 const completedCorrectInfo = () => {
   forms.classList.add("hide");
   completed.classList.add("show");
 };
 
+/** reset everything like it was in start */
+const resetEverything = () => {
+  forms.classList.remove("hide");
+  completed.classList.remove("show");
+  inputFields.forEach((input) => {
+    input.value = "";
+  });
+};
+
 button.addEventListener("click", submitInfo);
+completedButton.addEventListener("click", resetEverything);
 inputFields.forEach((input) => {
   input.addEventListener("input", (e) => formatInputHandler(input, e));
 });
