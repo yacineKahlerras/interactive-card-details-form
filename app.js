@@ -18,7 +18,8 @@ let errorFlag = false;
 /**checks the format of fields then submits them */
 const submitInfo = () => {
   resetErrorFlags();
-  checkFormat();
+  checkNumbersOnly();
+  nameCheck();
   checkEmpty();
   if (errorFlag) return;
 };
@@ -28,6 +29,7 @@ const checkEmpty = () => {
   inputFields.forEach((input) => {
     if (input.value.length == 0) {
       showError(input, "Can't be blank");
+      errorFlag = true;
     }
   });
 };
@@ -40,13 +42,31 @@ const resetErrorFlags = () => {
   });
 };
 
+/** checks the name if it has 2 words and doesn't contain numbers */
+const nameCheck = () => {
+  const hasLettersOnly = /^[a-zA-Z ]+$/.test(inputFields[0].value);
+  if (!hasLettersOnly) {
+    showError(inputFields[0], "must only contain letters");
+    errorFlag = true;
+    return;
+  }
+  const has2WordsMinimum = /^((\b[a-zA-Z]{1,}\b)\s*){2,}$/.test(
+    inputFields[0].value
+  );
+  if (!has2WordsMinimum) {
+    showError(inputFields[0], "must contain first and last name");
+    errorFlag = true;
+  }
+};
+
 /** checks fields if they have numbers only */
-const checkFormat = () => {
+const checkNumbersOnly = () => {
   for (let index = 1; index < inputFields.length; index++) {
     let input = inputFields[index];
     let isNum = /^[\d ]*$/.test(input.value);
     if (!isNum) {
       showError(input, "Wrong format, numbers only");
+      errorFlag = true;
     }
   }
 };
@@ -61,10 +81,10 @@ const showError = (input, errorMessage) => {
 };
 
 /** handles the format of the value of the fields */
-const formatHandler = (input, e) => {
+const formatInputHandler = (input, e) => {
   // card name
   if (input.id == "name") {
-    if (e.keyCode == 8) {
+    if (e.inputType == "deleteContentBackward") {
       if (input.value.length == 0) cardName.textContent = "FELICIA LEIRE";
       return;
     }
@@ -73,7 +93,7 @@ const formatHandler = (input, e) => {
 
   // card number
   if (input.id == "cardnumber") {
-    if (e.keyCode == 8) {
+    if (e.inputType == "deleteContentBackward") {
       if (input.value.length == 0)
         cardNumber.textContent = "9591 6489 6389 101E";
       return;
@@ -91,7 +111,7 @@ const formatHandler = (input, e) => {
 
   // month
   if (input.id == "month") {
-    if (e.keyCode == 8) {
+    if (e.inputType == "deleteContentBackward") {
       if (input.value.length == 0) cardMonth.textContent = "09";
       return;
     }
@@ -106,7 +126,7 @@ const formatHandler = (input, e) => {
 
   // year
   if (input.id == "year") {
-    if (e.keyCode == 8) {
+    if (e.inputType == "deleteContentBackward") {
       if (input.value.length == 0) cardYear.textContent = "00";
       return;
     }
@@ -118,7 +138,7 @@ const formatHandler = (input, e) => {
 
   // cvc
   if (input.id == "cvc") {
-    if (e.keyCode == 8) {
+    if (e.inputType == "deleteContentBackward") {
       if (input.value.length == 0) cardCvc.textContent = "000";
       return;
     }
@@ -128,5 +148,5 @@ const formatHandler = (input, e) => {
 
 button.addEventListener("click", submitInfo);
 inputFields.forEach((input) => {
-  input.addEventListener("input", (e) => formatHandler(input, e));
+  input.addEventListener("input", (e) => formatInputHandler(input, e));
 });
