@@ -43,6 +43,9 @@ const resetErrorFlags = () => {
   allErrorElements.forEach((element) => {
     element.classList.remove("show");
   });
+  inputFields.forEach((input) => {
+    input.classList.remove("input-error");
+  });
 };
 
 /** checks the name if it has 2 words and doesn't contain numbers */
@@ -76,6 +79,7 @@ const checkNumbersOnly = () => {
 
 /** shows error message */
 const showError = (input, errorMessage) => {
+  input.classList.add("input-error");
   if (input.id == "month" || input.id == "year") input = input.parentElement;
   const errorElement = input.parentElement.lastElementChild;
   errorElement.textContent = errorMessage;
@@ -151,7 +155,7 @@ const formatInputHandler = (input, e) => {
 
 const completedCorrectInfo = () => {
   forms.classList.add("hide");
-  completed.classList.remove("hide");
+  completed.classList.add("show");
 };
 
 button.addEventListener("click", submitInfo);
