@@ -42,6 +42,7 @@
               pattern="[0-9]*"
               type="text"
               inputmode="numeric"
+              maxlength="19"
               placeholder="e.g. 1234 5678 9123 0000"
             />
             <span class="error">Wrong format, numbers only</span>
@@ -92,16 +93,20 @@
         <img src="./images/bg-card-front.png" alt="card front" />
         <div class="front-card-content">
           <img src="./images/card-logo.svg" alt="" />
-          <h1 class="card-number">9591 6489 6389 101e</h1>
+          <h1 class="front-card-number">9591 6489 6389 101e</h1>
           <div>
-            <p>felicia leire</p>
-            <p>09/00</p>
+            <p class="front-card-name">felicia leire</p>
+            <p>
+              <span class="front-card-month">09</span>
+              /
+              <span class="front-card-year">00</span>
+            </p>
           </div>
         </div>
       </div>
       <div class="card-back">
         <img src="./images/bg-card-back.png" alt="card front" />
-        <p>000</p>
+        <p class="back-card-cvc">000</p>
       </div>
     </section>
     <script src="./app.js"></script>
