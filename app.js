@@ -5,7 +5,7 @@
     - View the optimal layout depending on their device's screen size
     - See hover, active, and focus states for interactive elements on the page
  */
-const button = document.querySelector(".button");
+const button = document.querySelector(".confirm-btn");
 let inputFields = [...document.getElementsByTagName("input")];
 const allErrorElements = [...document.querySelectorAll(".error")];
 const cardName = document.querySelector(".front-card-name");
@@ -13,6 +13,8 @@ const cardNumber = document.querySelector(".front-card-number");
 const cardMonth = document.querySelector(".front-card-month");
 const cardYear = document.querySelector(".front-card-year");
 const cardCvc = document.querySelector(".back-card-cvc");
+const forms = document.querySelector(".forms");
+const completed = document.querySelector(".completed");
 let errorFlag = false;
 
 /**checks the format of fields then submits them */
@@ -22,6 +24,7 @@ const submitInfo = () => {
   nameCheck();
   checkEmpty();
   if (errorFlag) return;
+  completedCorrectInfo();
 };
 
 /** checks if any of the fields are emptyand throxs an error glag */
@@ -144,6 +147,11 @@ const formatInputHandler = (input, e) => {
     }
     cardCvc.textContent = input.value;
   }
+};
+
+const completedCorrectInfo = () => {
+  forms.classList.add("hide");
+  completed.classList.remove("hide");
 };
 
 button.addEventListener("click", submitInfo);
